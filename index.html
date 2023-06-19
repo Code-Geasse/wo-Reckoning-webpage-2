@@ -57,11 +57,11 @@
                            <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="services.html">Services</a>
+                           <a class="nav-link" href="services.html">Status</a>
                         </li>
                         
                         <li class="nav-item">
-                           <a class="nav-link " href="contact.html">Contact</a>
+                           <a class="nav-link " href="contact.html">Dashboard</a>
                         </li>
                      </ul>
                   </div>
@@ -73,9 +73,9 @@
                   <ul>
                      <li class="active"><a href="index.html">Home</a></li>
                      <li><a href="about.html">About</a></li>
-                     <li><a href="services.html">Services</a></li>
+                     <li><a href="services.html">Status</a></li>
                      
-                     <li><a href="contact.html">Contact us</a></li>
+                     <li><a href="contact.html">Dashboard</a></li>
                   </ul>
                </div>
             </div>
@@ -88,21 +88,21 @@
                      <div class="container">
                         <h1 class="banner_taital"> Day Of Reckoning</h1>
                         <p class="banner_text">Welcome to Day Of reckoning, a server where you can experience the thrill of stealing life from other players and replenishing your own.</p>
-                        <div class="read_bt"><a href="src/init-oauth.php"><i class="fa-brands fa-discord mr-2"></i>Login to Discord</a> </i></div>
+                        <div class="read_bt"><a href="src/init-oauth.php" onclick="copyServerIp()"><i class="fa-brands fa-discord mr-2"></i>Copy Server Ip</a> </i></div>
                      </div>
                   </div>
                   <div class="carousel-item">
                      <div class="container">
                         <h1 class="banner_taital"> Day Of Reckoning</h1>
                         <p class="banner_text">Welcome to Day Of Reckoning, a server where you can experience the thrill of stealing life from other players and replenishing your own.</p>
-                        <div class="read_bt"><a href="src/init-oauth.php"><i class="fa-brands fa-discord mr-2"></i>Login to Discord</a></div>
+                        <div class="read_bt"><a href="src/init-oauth.php" onclick="copyServerIp()"><i class="fa-brands fa-discord mr-2"></i>Copy Server Ip</a></div>
                      </div>
                   </div>
                   <div class="carousel-item">
                      <div class="container">
                         <h1 class="banner_taital">Day Of Reckoning</h1>
                         <p class="banner_text">Welcome to Day Of Reckoning, a server where you can experience the thrill of stealing life from other players and replenishing your own.</p>
-                        <div class="read_bt"><a href="src/init-oauth.php"><i class="fa-brands fa-discord mr-2"></i>Login to Discord</a></div>
+                        <div class="read_bt"><a href="src/init-oauth.php" onclick="copyServerIp()"><i class="fa-brands fa-discord mr-2"></i>Copy Server Ip</a></div>
                      </div>
                   </div>
                </div>
@@ -287,4 +287,17 @@
       <script src="js/owl.carousel.js"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>    
    </body>
+   <script> function copyServerIp() {
+      const serverIp = "play.dayofreckoning.xyz";
+       // Create a temporary input field to hold the text to be copied
+      const tempInput = document.createElement("input");
+      tempInput.value = serverIp;
+       // Add the input field to the document and select its contents
+      document.body.appendChild(tempInput);
+      tempInput.select();
+       // Copy the selected text to the clipboard
+      document.execCommand("copy");
+       // Remove the temporary input field
+      document.body.removeChild(tempInput);
+    }</script>
 </html>
