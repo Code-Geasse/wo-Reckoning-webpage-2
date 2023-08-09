@@ -1,0 +1,24 @@
+{
+    "title" : "Day Of Reckoning",
+    "ip": "jp.dayofreckoning.xyz",
+    "Bungeeservers": {
+        "Asia_Proxy": {
+          "ip": "jp.dayofreckoning.xyz:9831",
+          "apikey": "ptlc_DlSTDDq8MSRBrcQkoSozdCcXEb61JKqDsgQhA9ReqAi",
+          "host": "https://dash.neronodes.net/",
+          "serverid": "f4efda31"
+        },
+        "America_Proxy": {
+          "ip": "us.dayofreckoning.xyz",
+          "apikey": "ptlc_Wi5RrbE0vzRMiybLSTJDcNnBeFZr6Uw1xJQAbHuOdNy",
+          "host": "https://panel.dandix.de/",
+          "serverid": "fb1c374e"
+        },
+        "Europe_Proxy": {
+          "ip": "",
+          "apikey": "ptlc_kDVAWqqsb1x0t7RyZsqWLssL0CZddAUDYTkZmQLptxY",
+          "host": "https://panel.dandix.de/",
+          "serverid": "3aa48b7d"
+        }
+}
+}
