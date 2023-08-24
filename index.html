@@ -59,7 +59,7 @@ https://templatemo.com/tm-577-liberty-market
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li><a href="index.html" class="active">Home</a></li>
-                        <!-- <li><a href="#">Explore</a></li> -->
+                        <!-- <li><a href="explore.html">Explore</a></li> -->
                         <!-- <li><a href="details.html">Item Details</a></li> -->
                         <!-- <li><a href="author.html">Author</a></li> -->
                         <li><a href="#">Dashboard</a></li>
@@ -86,11 +86,12 @@ https://templatemo.com/tm-577-liberty-market
             <p>Hey, are you looking for a fun and challenging Minecraft server? Then check out our server, where you can enjoy hardcore mode with only 3 lives, duels with other players, parkours to test your skills, and global proxies for low latency. My server is open to anyone who loves Minecraft and wants to have a good time. Join now and see for yourself!</p>
             <div class="buttons">
               <div class="border-button">
-                <a href="#">Top leaderboards</a>
+                <a href="#">Search Players</a>
               </div>
-              <div class="main-button">
-                <button class="btn btn-info" onclick="">Copy Server IP</button>
-              </div>
+              
+                
+                
+              
             </div>
           </div>
         </div>
@@ -154,7 +155,7 @@ https://templatemo.com/tm-577-liberty-market
                       <span class="collection">Gamemode:<br><strong>HardCore</strong></span>
                       <span class="category">Category:<br><strong>Survival Server</strong></span>
                       <div class="main-button">
-                        <a href="#">More Information</a>
+                        <a href="explore.html">More Information</a>
                       </div>
                     </div>
                   </div>
@@ -165,7 +166,7 @@ https://templatemo.com/tm-577-liberty-market
                       <span class="collection">Gamemode:<br><strong>Adventure</strong></span>
                       <span class="category">Category:<br><strong>Minigames Server</strong></span>
                       <div class="main-button">
-                        <a href="#">Check information</a>
+                        <a href="explore.html">Check information</a>
                       </div>
                     </div>
                   </div>
@@ -176,7 +177,7 @@ https://templatemo.com/tm-577-liberty-market
                       <span class="collection">Info:<br><strong>Server Feature</strong></span>
                       <span class="category">Category:<br><strong>Event</strong></span>
                       <div class="main-button">
-                        <a href="#">More Information</a>
+                        <a href="explore.html">More Information</a>
                       </div>
                     </div>
                   </div>
@@ -187,7 +188,7 @@ https://templatemo.com/tm-577-liberty-market
                       <span class="collection">Info:<br><strong>Server Feature</strong></span>
                       <span class="category">Category:<br><strong>Event</strong></span>
                       <div class="main-button">
-                        <a href="#">More Information</a>
+                        <a href="explore.html">More Information</a>
                       </div>
                     </div>
                   </div>
@@ -264,41 +265,21 @@ https://templatemo.com/tm-577-liberty-market
         <div class="col-lg-6">
           <div class="filters">
             <ul>
-              <li data-filter="*"  class="active">All </li>
-              <li data-filter=".msc">Economy</li>
-              <li data-filter=".dig">deaths</li>
+              
+              <li data-filter=".msc" class="active">Economy</li>
+             
               <li data-filter=".blc">Playtime</li>
-              <li data-filter=".vtr">Virtual</li>
+              
             </ul>
           </div>
         </div>
         <div class="col-lg-12">
-          <div class="row grid">
-            <!-- <div class="col-lg-6 currently-market-item all msc">
-              <div class="item">
-                <div class="left-image">
-                  <img src="assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
-                </div>
-                <div class="right-content">
-                  <h4>Music Art Super Item</h4>
-                  <span class="author">
-                    <img src="assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
-                    <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
-                  </span>
-                  <div class="line-dec"></div>
-                  <span class="bid">
-                    Current Bid<br><strong>2.03 ETH</strong><br><em>($8,240.50)</em>
-                  </span>
-                  <span class="ends">
-                    Ends In<br><strong>4D 08H 15M 42S</strong><br><em>(July 24th, 2022)</em>
-                  </span>
-                  <div class="text-button">
-                    <a href="details.html">View Item Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 currently-market-item all dig">
+          <div class="row" id="playerList">
+            
+            
+          </div>
+        </div>
+            <!-- <div class="col-lg-6 currently-market-item all dig">
               <div class="item">
                 <div class="left-image">
                   <img src="assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
@@ -448,89 +429,10 @@ https://templatemo.com/tm-577-liberty-market
   <script src="assets/js/tabs.js"></script>
   <script src="assets/js/popup.js"></script>
   <script src="assets/js/custom.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    // Fetch the config.json file
-    fetch('config.json')
-      .then(response => response.json())
-      .then(data => {
-        // Get the Bungeeservers object
-        const servers = data.Bungeeservers;
-  
-        // Iterate over each server
-        for (const server in servers) {
-          // Get the server IP
-          const ip = servers[server].ip;
-  
-          // Create the server item HTML
-          const serverItem = `
-            <div class="col-lg-4 col-sm-6">
-              <div class="item">
-                <div class="icon">
-                  <img src="assets/images/icon-04.png" alt="">
-                </div>
-                <h4>${server}</h4>
-                <div class="icon-button">
-                  <button id="${server}-button" class="btn btn-outline-secondary" data-ip="${ip}">LOADING</button>
-                </div>
-              </div>
-            </div>
-          `;
-  
-          // Append the server item to the server container
-          $('#server-container').append(serverItem);
-  
-          // Query the server status
-          fetch(`https://api.mcsrvstat.us/2/${ip}`)
-            .then(response => response.json())
-            .then(data => {
-              // Get the server status
-              const status = data.online;
-  
-              // Get the server button
-              const button = $(`#${server}-button`);
-  
-              // Update the button color and text based on the server status
-              if (status) {
-                button.removeClass('btn-outline-secondary').addClass('btn-outline-success');
-                button.text('Copy IP Address');
-              } else {
-                button.removeClass('btn-outline-secondary').addClass('btn-outline-danger');
-                button.text('Not Online');
-              }
-            })
-            .catch(error => {
-              // Handle any errors
-              const button = $(`#${server}-button`);
-              button.removeClass('btn-outline-secondary').addClass('btn-outline-danger');
-              button.text('Not Online');
-            });
-        }
-  
-        // Add a click event handler to the server buttons
-        $(document).on('click', '.btn', function() {
-          // Get the server IP
-          const ip = $(this).data('ip');
-  
-          // Create a temporary input element
-          const tempInput = document.createElement('input');
-          document.body.appendChild(tempInput);
-  
-          // Set the input value to the server IP
-          tempInput.value = ip;
-  
-          // Select the input value
-          tempInput.select();
-  
-          // Copy the input value to the clipboard
-          document.execCommand('copy');
-  
-          // Remove the temporary input element
-          document.body.removeChild(tempInput);
-        });
-      });
   </script>
-    
+
   </body>
   
 </html>

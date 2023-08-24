@@ -164,45 +164,45 @@
 		}
 	});
 
-	$(document).ready(function () {
-	    $(document).on("scroll", onScroll);
+	// $(document).ready(function () {
+	//     $(document).on("scroll", onScroll);
 	    
-	    //smoothscroll
-	    $('.scroll-to-section a[href^="#"]').on('click', function (e) {
-	        e.preventDefault();
-	        $(document).off("scroll");
+	//     //smoothscroll
+	//     $('.scroll-to-section a[href^="#"]').on('click', function (e) {
+	//         e.preventDefault();
+	//         $(document).off("scroll");
 	        
-	        $('.scroll-to-section a').each(function () {
-	            $(this).removeClass('active');
-	        })
-	        $(this).addClass('active');
+	//         $('.scroll-to-section a').each(function () {
+	//             $(this).removeClass('active');
+	//         })
+	//         $(this).addClass('active');
 	      
-	        var target = this.hash,
-	        menu = target;
-	       	var target = $(this.hash);
-	        $('html, body').stop().animate({
-	            scrollTop: (target.offset().top) - 79
-	        }, 500, 'swing', function () {
-	            window.location.hash = target;
-	            $(document).on("scroll", onScroll);
-	        });
-	    });
-	});
+	//         var target = this.hash,
+	//         menu = target;
+	//        	var target = $(this.hash);
+	//         $('html, body').stop().animate({
+	//             scrollTop: (target.offset().top) - 79
+	//         }, 500, 'swing', function () {
+	//             window.location.hash = target;
+	//             $(document).on("scroll", onScroll);
+	//         });
+	//     });
+	// });
 
-	function onScroll(event){
-	    var scrollPos = $(document).scrollTop();
-	    $('.nav a').each(function () {
-	        var currLink = $(this);
-	        var refElement = $(currLink.attr("href"));
-	        if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-	            $('.nav ul li a').removeClass("active");
-	            currLink.addClass("active");
-	        }
-	        else{
-	            currLink.removeClass("active");
-	        }
-	    });
-	}
+	// function onScroll(event){
+	//     var scrollPos = $(document).scrollTop();
+	//     $('.nav a').each(function () {
+	//         var currLink = $(this);
+	//         var refElement = $(currLink.attr("href"));
+	//         if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+	//             $('.nav ul li a').removeClass("active");
+	//             currLink.addClass("active");
+	//         }
+	//         else{
+	//             currLink.removeClass("active");
+	//         }
+	//     });
+	// }
 
 
 	// Page loading animation
@@ -284,3 +284,184 @@ function updateTitleTag() {
 
   // Call the function to update the title tag
   updateTitleTag();
+  document.addEventListener('DOMContentLoaded', function() {
+	const url = 'http://seisonetwork.optikl.ink/topmoney.php?action=getTop10Players';
+	const url2 = 'http://seisonetwork.optikl.ink/topbungeetime.php?action=getTop10Players';
+  
+	// Fetch top 10 players by economy
+	fetch(url)
+	  .then(response => response.json())
+	  .then(players => {
+		displayPlayers(players, 'economy');
+	  });
+  
+	// Fetch top 10 players by playtime
+	fetch(url2)
+	  .then(response => response.json())
+	  .then(players => {
+		displayPlayers(players, 'playtime');
+	  });
+  });
+  
+  async function displayPlayers(players, type) {
+	let html = '';
+  
+	for (const player of players) {
+	  const skinUrl = await getSkinByUuid(player.player_name);
+	  if (type === 'economy') {
+		html += `
+		  <div class="col-lg-6 currently-market-item msc">
+			<div class="item">
+			  <div class="left-image">
+				<img src="${skinUrl}" alt="" style="border-radius: 20px; min-width: 195px;">
+			  </div>
+			  <div class="right-content">
+				<h4>${player.player_name}</h4>
+				<div class="line-dec"></div>
+				<span class="bid">
+				  Minecoins<br><strong>${player.money}</strong><br><em>($8,240.50)</em>
+				</span>
+			  </div>
+			</div>
+		  </div>`;
+	  } else if (type === 'playtime') {
+		html += `
+		  <div class="col-lg-6 currently-market-item blc" style="display: none;">
+			<div class="item">
+			  <div class="left-image">
+				<img src="${skinUrl}" alt="" style="border-radius: 20px; min-width: 195px;">
+			  </div>
+			  <div class="right-content">
+				<h4>${player.player_name}</h4>
+				<div class="line-dec"></div>
+				<span class="bid">
+				  Play Time<br><strong>${player.play_time}</strong><br><em>($8,240.50)</em>
+				</span>
+			  </div>
+			</div>
+		  </div>`;
+	  }
+	}
+  
+	// Append player list to HTML
+	document.getElementById('playerList').innerHTML += html;
+  }
+  
+  // Filter players by type
+  const filters = document.querySelectorAll('.filters li');
+  filters.forEach(filter => {
+	filter.addEventListener('click', () => {
+	  const type = filter.getAttribute('data-filter').substring(1);
+	  const items = document.querySelectorAll(`.currently-market-item:not(.${type})`);
+	  items.forEach(item => {
+		item.style.display = 'none';
+	  });
+	  const showItems = document.querySelectorAll(`.${type}`);
+	  showItems.forEach(item => {
+		item.style.display = 'block';
+	  });
+	});
+  });
+  const getUuidByUsername = async (username) => {
+    try {
+        const usernameToUuidApi = `https://api.minetools.eu/uuid/${username}`;
+        let response = await fetch(usernameToUuidApi);
+        let data = await response.json();
+
+        if(!data.id) return "None";
+        else return await data.id;
+    } catch (e) {
+        return "None";
+    }
+}
+const getSkinByUuid = async (username) => {
+    try {
+        const skinByUuidApi = `https://visage.surgeplay.com/full/512/${await getUuidByUsername(username)}`;
+        let response = await fetch(skinByUuidApi);
+
+        if(response.status === 400) return `https://visage.surgeplay.com/full/512/ec561538f3fd461daff5086b22154bce`;
+        else return skinByUuidApi;
+    } catch (e) {
+        return "None";
+    }
+}
+    // Fetch the config.json file
+    fetch('../../config.json')
+      .then(response => response.json())
+      .then(data => {
+        // Get the Bungeeservers object
+        const servers = data.Bungeeservers;
+  
+        // Iterate over each server
+        for (const server in servers) {
+          // Get the server IP
+          const ip = servers[server].ip;
+  
+          // Create the server item HTML
+          const serverItem = `
+            <div class="col-lg-4 col-sm-6">
+              <div class="item">
+                <div class="icon">
+                  <img src="assets/images/icon-04.png" alt="">
+                </div>
+                <h4>${server}</h4>
+                <div class="icon-button">
+                  <button id="${server}-button" class="btn btn-outline-secondary" data-ip="${ip}">LOADING</button>
+                </div>
+              </div>
+            </div>
+          `;
+  
+          // Append the server item to the server container
+          $('#server-container').append(serverItem);
+  
+          // Query the server status
+          fetch(`https://api.mcsrvstat.us/2/${ip}`)
+            .then(response => response.json())
+            .then(data => {
+              // Get the server status
+              const status = data.online;
+  
+              // Get the server button
+              const button = $(`#${server}-button`);
+  
+              // Update the button color and text based on the server status
+              if (status) {
+                button.removeClass('btn-outline-secondary').addClass('btn-outline-success');
+                button.text('Copy IP Address');
+              } else {
+                button.removeClass('btn-outline-secondary').addClass('btn-outline-danger');
+                button.text('Not Online');
+              }
+            })
+            .catch(error => {
+              // Handle any errors
+              const button = $(`#${server}-button`);
+              button.removeClass('btn-outline-secondary').addClass('btn-outline-danger');
+              button.text('Not Online');
+            });
+        }
+  
+        // Add a click event handler to the server buttons
+        $(document).on('click', '.btn', function() {
+          // Get the server IP
+          const ip = $(this).data('ip');
+  
+          // Create a temporary input element
+          const tempInput = document.createElement('input');
+          document.body.appendChild(tempInput);
+  
+          // Set the input value to the server IP
+          tempInput.value = ip;
+  
+          // Select the input value
+          tempInput.select();
+  
+          // Copy the input value to the clipboard
+          document.execCommand('copy');
+  
+          // Remove the temporary input element
+          document.body.removeChild(tempInput);
+        });
+      });
+     
