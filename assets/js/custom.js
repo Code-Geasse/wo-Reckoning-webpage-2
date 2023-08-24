@@ -386,7 +386,7 @@ const getSkinByUuid = async (username) => {
     }
 }
     // Fetch the config.json file
-    fetch('../../config.json')
+    fetch('config.json')
       .then(response => response.json())
       .then(data => {
         // Get the Bungeeservers object
