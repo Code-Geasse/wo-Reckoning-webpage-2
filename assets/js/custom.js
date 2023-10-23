@@ -287,8 +287,8 @@ function updateTitleTag() {
   document.addEventListener('DOMContentLoaded', function() {
 	const url = [
 		{
-			player_name: 'pleasedead',
-			money: '2000'
+			"playername": 'pleasedead',
+			"money": '2000'
 		},
 
 	];
