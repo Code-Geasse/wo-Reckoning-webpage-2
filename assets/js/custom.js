@@ -285,7 +285,13 @@ function updateTitleTag() {
   // Call the function to update the title tag
   updateTitleTag();
   document.addEventListener('DOMContentLoaded', function() {
-	const url = 'http://seisonetwork.optikl.ink/topmoney.php?action=getTop10Players';
+	const url = [
+		{
+			player_name: 'pleasedead',
+			money: '2000'
+		},
+
+	];
 	const url2 = 'http://seisonetwork.optikl.ink/topbungeetime.php?action=getTop10Players';
   
 	// Fetch top 10 players by economy
